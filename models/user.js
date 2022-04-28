@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     userName: {
       type: String,
@@ -37,7 +37,7 @@ const UserSchema = new Schema(
 );
 
 // get total count of comments and replies on retrieval
-UserSchema.virtual('friendCount').get(function() {
+userSchema.virtual('friendCount').get(function() {
   return this.friends.length;
 });
 

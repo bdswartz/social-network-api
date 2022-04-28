@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const apiRoutes = require('./api');
 
+// path coming into this file root/
+
 router.use('/api', apiRoutes);
 
 router.use((req, res) => {
