@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 const userController = {
   // get all users  *****tested
@@ -60,10 +60,27 @@ const userController = {
       .catch(err => res.json(err));
   },
 
-  // delete User    ******tested
+  // delete User    ******tested (not with remove thoughts)
   deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
-      .then(dbUserData => res.json(dbUserData))
+      .then(dbUserData => {
+       if(!dbUserData) {
+        return res.status(404).json({ message: 'No user with this id!' });
+       }
+        const thoughtArray = dbUserData.thoughts;
+        return Thought.deleteMany({
+          _id: {
+            $in: thoughtArray
+          }
+        });
+      })
+      .then(dbDeletedData => {
+        if (!dbDeletedData) {
+          res.status(404).json({ message: 'No thoughts found with this id!' });
+          return;
+        }
+        res.json(dbDeletedData); 
+      })
       .catch(err => res.json(err));
   },
 
