@@ -17,6 +17,8 @@ npm i
 ## Usage
 At this point, the application is an "endpoints only" application.  
 
+[Video Showing API functionality](https://youtu.be/kPDeQHM88iI)
+
 ---
 
 ## Technologies
